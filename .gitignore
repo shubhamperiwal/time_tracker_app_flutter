@@ -83,3 +83,5 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+time_tracker_flutter_course/pubspec.lock
+time_tracker_flutter_course/pubspec.yaml
