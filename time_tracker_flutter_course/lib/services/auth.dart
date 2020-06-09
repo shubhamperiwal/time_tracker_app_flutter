@@ -10,6 +10,7 @@ abstract class AuthBase{
   Future<User> currentUser();
   Future<User> signInAnonymously();
   Future<void> signOut();
+  Stream<User> get onAuthStateChanged;
 }
 
 class Auth implements AuthBase{
@@ -23,6 +24,13 @@ class Auth implements AuthBase{
     }
     return User(uid: user.uid);
     
+  }
+
+  // declare a new getter variable in auth class
+  @override
+  Stream<User> get onAuthStateChanged {
+    // map is a method of stream class which transforms each element of stream into a new element
+    return _firebaseAuth.onAuthStateChanged.map((firebaseUser) => _userFromFirebase(firebaseUser));
   }
 
   @override
