@@ -11,9 +11,12 @@ class User {
 abstract class AuthBase{
   Future<User> currentUser();
   Future<User> signInAnonymously();
+  Future<User> signInWithEmailAndPassword(String email, String password);
+  Future<User> createUserWithEmailAndPassword(String email, String password);
   Future<void> signOut();
   Stream<User> get onAuthStateChanged;
   Future<User> signInWithGoogle();
+  
 }
 
 class Auth implements AuthBase{
@@ -45,6 +48,18 @@ class Auth implements AuthBase{
   @override
   Future<User> signInAnonymously() async {
     final authResult = await _firebaseAuth.signInAnonymously();
+    return _userFromFirebase(authResult.user);
+  }
+
+  @override
+  Future<User> signInWithEmailAndPassword(String email, String password) async{
+    final authResult = await _firebaseAuth.signInWithEmailAndPassword(email: email,password: password);
+    return _userFromFirebase(authResult.user);
+  }
+
+  @override
+  Future<User> createUserWithEmailAndPassword(String email, String password) async{
+    final authResult = await _firebaseAuth.createUserWithEmailAndPassword(email: email,password: password);
     return _userFromFirebase(authResult.user);
   }
 
