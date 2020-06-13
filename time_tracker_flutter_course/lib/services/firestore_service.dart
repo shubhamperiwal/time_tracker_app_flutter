@@ -19,14 +19,14 @@ class FirestoreService {
 // helper method to read collections of docs from firestore
   Stream<List<T>> collectionStream<T>({
     @required String path,
-    @required T builder(Map<String, dynamic> data ),
+    @required T builder(Map<String, dynamic> data, String documentId),
   }) {
     final reference = Firestore.instance.collection(path);
     final snapshots = reference.snapshots();
 
     return snapshots.map((collectionSnap) => 
       collectionSnap.documents.map(
-        (snapshotDoc) => builder(snapshotDoc.data)).toList());
+        (snapshotDoc) => builder(snapshotDoc.data, snapshotDoc.documentID)).toList());
 
   }
 
