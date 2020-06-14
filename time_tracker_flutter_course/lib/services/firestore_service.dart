@@ -9,11 +9,16 @@ class FirestoreService {
   static final instance = FirestoreService._();
 
   // helper method to add document to firestore
-  Future<void> setData({String path, Map<String, dynamic> data}) async{
+  Future<void> setData({@required String path, @required Map<String, dynamic> data}) async{
     final reference = Firestore.instance.document(path);
-    print('$path: $data');
     await reference.setData(data);
 
+  }
+
+  Future<void> deleteData({@required String path}) async {
+    final reference = Firestore.instance.document(path);
+    print('delete $path');
+    await reference.delete();
   }
 
 // helper method to read collections of docs from firestore
