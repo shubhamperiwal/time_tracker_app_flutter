@@ -2,6 +2,8 @@
 
 import 'package:intl/intl.dart';
 
+// helper class with utility methods to get what we want
+// using global access to access methods of format
 class Format {
 
   static String hours(double hours) {

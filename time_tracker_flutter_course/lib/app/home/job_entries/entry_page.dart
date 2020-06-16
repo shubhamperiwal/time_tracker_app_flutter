@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:time_tracker_flutter_course/app/home/job_entries/date_time_picker.dart';
+import 'package:time_tracker_flutter_course/common_widgets/date_time_picker.dart';
 import 'package:time_tracker_flutter_course/app/home/job_entries/format.dart';
 import 'package:time_tracker_flutter_course/app/home/models/entry.dart';
 import 'package:time_tracker_flutter_course/app/home/models/job.dart';
@@ -14,6 +14,7 @@ class EntryPage extends StatefulWidget {
   final Entry entry;
   final Database database;
 
+// used to push new route with Navigator
   static Future<void> show({BuildContext context, Database database, Job job, Entry entry}) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
@@ -35,6 +36,8 @@ class _EntryPageState extends State<EntryPage> {
   TimeOfDay _endTime;
   String _comment;
 
+// For existing entries - use existing fields 
+// For new entries - initialise
   @override
   void initState() {
     super.initState();
@@ -64,10 +67,12 @@ class _EntryPageState extends State<EntryPage> {
     );
   }
 
+// called when we press create button 
   Future<void> _setEntryAndDismiss(BuildContext context) async {
     try {
       final entry = _entryFromState();
       await widget.database.setEntry(entry);
+      // dismiss page if operation succeeds
       Navigator.of(context).pop();
     } on PlatformException catch (e) {
       PlatformExceptionAlertDialog(
@@ -93,6 +98,7 @@ class _EntryPageState extends State<EntryPage> {
           )
         ],
       ),
+      // show item vertically
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(16.0),
@@ -113,6 +119,7 @@ class _EntryPageState extends State<EntryPage> {
     );
   }
 
+// custom widget built for this project
   Widget _buildStartDate() {
     return DateTimePicker(
       labelText: 'Start',
@@ -133,6 +140,7 @@ class _EntryPageState extends State<EntryPage> {
     );
   }
 
+// calculate duration in hours
   Widget _buildDuration() {
     final currentEntry = _entryFromState();
     final durationFormatted = Format.hours(currentEntry.durationInHours);

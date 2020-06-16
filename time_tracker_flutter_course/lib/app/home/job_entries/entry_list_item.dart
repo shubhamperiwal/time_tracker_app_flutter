@@ -16,12 +16,14 @@ class EntryListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // InkWell flushes item when selected
     return InkWell(
       onTap: onTap,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Row(
           children: <Widget>[
+            // often used inside rows or columns to expand its children to all available space
             Expanded(
               child: _buildContents(context),
             ),
@@ -49,6 +51,7 @@ class EntryListItem extends StatelessWidget {
           Text(dayOfWeek, style: TextStyle(fontSize: 18.0, color: Colors.grey)),
           SizedBox(width: 15.0),
           Text(startDate, style: TextStyle(fontSize: 18.0)),
+          // Collection IF
           if (job.ratePerHour > 0.0) ...<Widget>[
             Expanded(child: Container()),
             Text(
