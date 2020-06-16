@@ -23,10 +23,16 @@ class EntriesListTile extends StatelessWidget {
     const fontSize = 16.0;
     return Container(
       color: model.isHeader ? Colors.indigo[100] : null,
-      padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      padding: EdgeInsets.symmetric(
+        vertical: 8.0, 
+        horizontal: 16.0
+      ),
       child: Row(
         children: <Widget>[
-          Text(model.leadingText, style: TextStyle(fontSize: fontSize)),
+          Text(
+            model.leadingText, 
+            style: TextStyle(fontSize: fontSize)
+          ),
           Expanded(child: Container()),
           if (model.middleText != null)
             Text(
@@ -34,6 +40,7 @@ class EntriesListTile extends StatelessWidget {
               style: TextStyle(color: Colors.green[700], fontSize: fontSize),
               textAlign: TextAlign.right,
             ),
+            // sizedBox right-aligns the trailing text
           SizedBox(
             width: 60.0,
             child: Text(

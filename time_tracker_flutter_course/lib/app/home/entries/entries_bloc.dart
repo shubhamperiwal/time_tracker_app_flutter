@@ -14,11 +14,14 @@ class EntriesBloc {
 
   /// combine List<Job>, List<Entry> into List<EntryJob>
   Stream<List<EntryJob>> get _allEntriesStream => Rx.combineLatest2(
+    // take the 2 input streams and combine them into one
         database.entriesStream(),
         database.jobsStream(),
         _entriesJobsCombiner,
       );
 
+// for each entry, find a job with matching jobId, 
+// then build an EntryJob object and return
   static List<EntryJob> _entriesJobsCombiner(
       List<Entry> entries, List<Job> jobs) {
     return entries.map((entry) {
@@ -31,6 +34,7 @@ class EntriesBloc {
   Stream<List<EntriesListTileModel>> get entriesTileModelStream =>
       _allEntriesStream.map(_createModels);
 
+// this mdoel is added to output stream
   static List<EntriesListTileModel> _createModels(List<EntryJob> allEntries) {
     final allDailyJobsDetails = DailyJobsDetails.all(allEntries);
 

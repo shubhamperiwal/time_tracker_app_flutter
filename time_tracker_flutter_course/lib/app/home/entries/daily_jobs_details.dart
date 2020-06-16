@@ -14,6 +14,7 @@ class JobDetails {
 }
 
 /// Groups together all jobs/entries on a given day
+// / we get all data we need for a given day
 class DailyJobsDetails {
   DailyJobsDetails({@required this.date, @required this.jobsDetails});
   final DateTime date;
